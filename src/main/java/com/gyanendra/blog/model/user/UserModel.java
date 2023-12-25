@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.gyanendra.blog.entity.Role;
+import com.gyanendra.blog.model.role.RoleModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

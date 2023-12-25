@@ -23,17 +23,15 @@ import com.gyanendra.blog.service.UserService;
 @Api(value = USER_PATH, tags = "User APIs")
 public class UserController {
 
-    // region
     private final UserFacade facade;
     private final UserService userService;
-    // endregion
 
     /**
      * Save user
      *
      * @param model as UserModel
      * @return User
-     * @throws BlogException
+     * @throws BlogException as BlogException
      */
     @PostMapping
     @ApiOperation(value = "Save User", response = User.class)
@@ -46,24 +44,37 @@ public class UserController {
      *
      * @param userId as String
      * @return User
-     * @throws BlogException
+     * @throws BlogException as BlogException
      */
     @GetMapping("/{userId}")
     @ApiOperation(value = "Get User", response = User.class)
     public ResponseEntity<Object> getUser(@PathVariable Long userId) throws BlogException {
-        return ResponseHandler.response(HttpStatus.OK, facade.getUser(userId), true);
+        return ResponseHandler.response(HttpStatus.OK, facade.getUserById(userId), true);
     }
 
     /**
-     * Get user by id
+     * Get All User
      *
-     * @param userId as String
      * @return User
-     * @throws BlogException
+     * @throws BlogException as BlogException
      */
     @GetMapping
     @ApiOperation(value = "Get All User", response = User.class)
-    public ResponseEntity<Object> getAllUser() {
+    public ResponseEntity<Object> getAllUser() throws BlogException {
         return ResponseHandler.response(HttpStatus.OK, userService.getAll(), true);
+    }
+
+    /**
+     * Delete User By Id
+     *
+     * @param userId as Long
+     * @return null
+     * @throws BlogException as BlogException
+     */
+    @DeleteMapping("/{userId}")
+    @ApiOperation(value = "Delete User By Id", response = User.class)
+    public ResponseEntity<Object> deleteUserById(@PathVariable Long userId) throws BlogException {
+        facade.deleteUserById(userId);
+        return ResponseHandler.response(HttpStatus.OK, null, true);
     }
 }

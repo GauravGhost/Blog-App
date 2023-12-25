@@ -19,7 +19,6 @@ import com.gyanendra.blog.model.common.ResponseHandler;
 import com.gyanendra.blog.model.role.RoleModel;
 
 @RestController
-@RequiredArgsConstructor
 @AllArgsConstructor
 @RequestMapping(ROLE_PATH)
 @Api(value = ROLE_PATH, tags = "ROLE APIs")
@@ -30,9 +29,9 @@ public class RoleController {
     /**
      * Get role By Id
      *
-     * @param model as roleModel
+     * @param roleId as Long
      * @return Role
-     * @throws BlogException
+     * @throws BlogException as BlogException
      */
     @GetMapping("/{roleId}")
     @ApiOperation(value = "Get Role By Id", response = Role.class)
@@ -45,11 +44,25 @@ public class RoleController {
      *
      * @param model as roleModel
      * @return Role
-     * @throws BlogException
+     * @throws BlogException as BlogException
      */
     @PostMapping
     @ApiOperation(value = "Save Role", response = Role.class)
-    public ResponseEntity<Object> saveUser(@RequestBody RoleModel model) throws BlogException {
+    public ResponseEntity<Object> saveRole(@RequestBody RoleModel model) throws BlogException {
         return ResponseHandler.response(HttpStatus.OK, roleFacade.saveRole(model), true);
+    }
+
+    /**
+     * Delete role By Id
+     *
+     * @param roleId as Long
+     * @return response
+     * @throws BlogException as BlogException
+     */
+    @DeleteMapping("/{roleId}")
+    @ApiOperation(value = "Delete Role By Id", response = Role.class)
+    public ResponseEntity<Object> deleteRoleById(@PathVariable("roleId") Long roleId) throws BlogException {
+        roleFacade.deleteRoleById(roleId);
+        return ResponseHandler.response(HttpStatus.OK, null, true);
     }
 }

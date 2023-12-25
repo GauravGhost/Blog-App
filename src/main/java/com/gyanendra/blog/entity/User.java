@@ -30,20 +30,21 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.gyanendra.blog.model.role.RoleModel;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+// @ToString
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( name = "userId", nullable = false, unique = true)
+    @Column(name = "userId", nullable = false, unique = true)
     private Long userId;
 
     @Column(name = "name")
@@ -65,11 +66,11 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    // // Relationships
+    // Relationships
     // @OneToMany(mappedBy = "user")
     // private Set<Post> posts = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 }

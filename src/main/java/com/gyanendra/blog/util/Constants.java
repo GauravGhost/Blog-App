@@ -17,7 +17,7 @@ public class Constants {
         public static final String ROLE_PATH = BASE_URL + "/role";
     }
 
-    public static final class PostPaths {
+    public static final class PostPath {
         public static final String POST_PATH = BASE_URL + "/post";
     }
 

@@ -25,7 +25,7 @@ public class RoleFacade {
      *
      * @param roleId as Long
      * @return Role with User Associated with this role
-     * @throws BlogException
+     * @throws BlogException as BlogException
      */
     public Object getRoleById(Long roleId) throws BlogException {
         // Checking params
@@ -59,5 +59,24 @@ public class RoleFacade {
         // Mapping model RoleModel -> Role
         Role role = new ModelMapper().map(model, Role.class);
         return roleService.saveRole(role);
+    }
+
+    /**
+     * Get Role by id
+     *
+     * @param roleId as Long
+     * @return Role with User Associated with this role
+     * @throws BlogException as BlogException
+     */
+    public void deleteRoleById(Long roleId) throws BlogException {
+        // Checking params
+        if (roleId < 0)
+            throw new InvalidParamException();
+        // Checking role
+        Role role = roleService.getRoleByRoleId(roleId);
+        if (role == null){
+            throw new RoleNotFoundException();
+        }
+        roleService.deleteRoleById(roleId);
     }
 }

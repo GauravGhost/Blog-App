@@ -1,50 +1,21 @@
-// package com.gyanendra.blog.service;
+package com.gyanendra.blog.service;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Service;
+import com.gyanendra.blog.entity.Post;
+import com.gyanendra.blog.repository.PostRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
-// import java.util.HashSet;
-// import java.util.Set;
+@AllArgsConstructor
+@Service
+public class PostService {
 
-// @Service
+    private final PostRepository postRepository;
 
-// public class PostService {
-
-//    private final PostRepository postRepository;
-//    private final TagRepository tagRepository;
-
-//    @Autowired
-//    public PostService(PostRepository postRepository, TagRepository tagRepository) {
-//        this.postRepository = postRepository;
-//        this.tagRepository = tagRepository;
-//    }
-
-//    public Post createPost(String title, String content, Set<String> tagNames) {
-//        // Create a new post
-//        Post post = new Post();
-//        post.setTitle(title);
-//        post.setContent(content);
-
-//        // Fetch the tags from the database
-//        Set<Tag> tags = new HashSet<>();
-//        for (String tagName : tagNames) {
-//            Tag tag = tagRepository.findByName(tagName);
-//            if (tag == null) {
-//                tag = new Tag();
-//                tag.setName(tagName);
-//                tagRepository.save(tag);
-//            }
-//            tags.add(tag);
-//        }
-
-//        // Set the tags for the post
-//        post.setTags(tags);
-
-//        // Save the post to the database
-//        postRepository.save(post);
-
-//        return post;
-//    }
+    public Post savePost(Post post) {
+        // Save the post to the database
+        postRepository.save(post);
+        return post;
+    }
 
 // public void deletePost(Long postId) {
 //       // Fetch the post from the database
@@ -64,4 +35,4 @@
 //       // Delete the post from the database
 //       postRepository.delete(post);
 //   }
-// }
+}

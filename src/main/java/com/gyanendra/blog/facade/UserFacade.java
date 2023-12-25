@@ -27,7 +27,7 @@ public class UserFacade {
      * @return User
      * @throws BlogException
      */
-    public Object getUser(Long userId) throws BlogException {
+    public Object getUserById(Long userId) throws BlogException {
         // Checking user
         User user = userService.getUserById(userId);
         if (user == null)
@@ -43,16 +43,30 @@ public class UserFacade {
      * @throws BlogException
      */
     public Object saveUser(UserModel model) throws BlogException {
-            // Checking params
-            if (model == null ||
-                    model.getName().isEmpty() || model.getUsername().isEmpty())
-                throw new InvalidParamException();
-            // Checking if user is already exist
-            User existUser = userService.getUserByUsername(model.getUsername());
-            if (existUser != null)
-                throw new UserAlreadyExistException();
-            // Mapping model UserModel -> User
-            User user = new ModelMapper().map(model, User.class);
-            return userService.saveUser(user);
+        // Checking params
+        if (model == null ||
+                model.getName().isEmpty() || model.getUsername().isEmpty())
+            throw new InvalidParamException();
+        // Checking if user is already exist
+        User existUser = userService.getUserByUsername(model.getUsername());
+        if (existUser != null)
+            throw new UserAlreadyExistException();
+        // Mapping model UserModel -> User
+        User user = new ModelMapper().map(model, User.class);
+        return userService.saveUser(user);
+    }
+
+    /**
+     * Delete user by id
+     *
+     * @param userId as String
+     * @throws BlogException as BlogException
+     */
+    public void deleteUserById(Long userId) throws BlogException {
+        // Checking user
+        User user = userService.getUserById(userId);
+        if (user == null)
+            throw new UserNotFoundException();
+        userService.deleteUserById(userId);
     }
 }

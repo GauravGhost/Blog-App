@@ -39,7 +39,7 @@ public class RoleService {
     /**
      * Save Role
      *
-     * @param Role as Role
+     * @param role as Role
      * @return Role
      */
     public Role saveRole(Role role) {
@@ -52,7 +52,7 @@ public class RoleService {
      * @param roleId as String
      * @return void
      */
-    public void deleteUser(Long roleId) {
+    public void deleteRoleById(Long roleId) {
         roleRepository.deleteById(roleId);
     }
 }
